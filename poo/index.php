@@ -1,7 +1,13 @@
 <?php
 
+//! L'interface défini des méthodes que l'on veut rendre obligatoire sur tous les objets qui ont "signer le contrat" 
+interface Travailleur{
+    public function travailler();
+}
+
+// ! On fait "signer le contrat" à l'objet en ajoutant le mot-clé "implements"...
 // Une class va représanter des données et un comportement, qui ici, va afficher une présentation.
-class Employe {
+class Employe implements Travailleur{
     // Des variables dans un objet sont appelées des propriétées
     public $nom;
     public $prenom;
@@ -15,6 +21,11 @@ class Employe {
         // Ici on vérifie si l'age est bien un nombre grace à la méthode setAge() que j'ai défini, au cas ou la personne aurai envie de modifier la propriétée via le parametre de mon objet Employe().
         $this->setAge($age);
     }
+
+    // ! ...et on ajoute la fonction travailler()
+    public function travailler(){
+        return "j'ai signer le contrat donc je m'affiche";
+    } 
 
     // Permet à qq d'extèrieur de pouvoir changer la propriété ->age sous une condition
     public function setAge($age){
@@ -58,7 +69,6 @@ class Patron extends Employe {
     public function rouler(){
         var_dump("Bonjour, je roule avec ma $this->voiture !");
     }
-
 }
 
 // Un objet donne une réalitée à la class
@@ -73,4 +83,14 @@ $employe1->setAge(50);
 $employe1->presentation();
 $patron->presentation();
 $patron->rouler();
+
+// ! Le but ici et d'etre sur que les prochains developpeur qui passeront dans mon code et qui appelleront ma fonction faireTravailler(), mettent un objet contenant absolument la méthode travailler() en parametre de cette fonction faireTravailler(). Pour cela on va créer une interface qui contiendra un "contrat" que les objets créer devront absolument "signer" pour apparaitre dans cette fonction faireTravailler().
+// Dans le cas ou je voudrais créer une fonction qui recevra n'importe quel objet en parametre...
+// ! On rajoute le "contrat" qui est ici Travailleur.
+function faireTravailler(Travailleur $objet){
+// ...et qui afficherai une méthode précise de cet objet(car je veux etre sur et certain que l'objet que la personne a mis dans le parametre de ma fonction possède cette méthode précise).
+    var_dump("Travail en cours : {$objet->travailler()}");
+}
+
+faireTravailler($employe1);
 
