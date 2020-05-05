@@ -1,6 +1,6 @@
 <?php
 
-//! L'interface défini des méthodes que l'on veut rendre obligatoire sur tous les objets qui ont "signer le contrat" 
+//! L'interface défini des méthodes abstraites que l'on veut rendre obligatoire sur tous les objets qui ont "signer le contrat", ces objets devront redéfinir les méthodes abstraites selon les cas et donneront un résultat différent "notion de polymorphisme"  
 interface Travailleur{
     public function travailler();
 }
@@ -93,4 +93,6 @@ function faireTravailler(Travailleur $objet){
 }
 
 faireTravailler($employe1);
+
+// ? Il ya aussi la classe abstraite qui est l'égale d'une interface sauf que c'est un objet(inutilisable) qui permet d'avoir plus de controlle du code. Je l'utiliserais dans un autre projet.
 
